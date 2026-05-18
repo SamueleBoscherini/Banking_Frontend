@@ -1,0 +1,19 @@
+<div>
+    <label for="id">Id</label>
+    <input type="text" id="id" name="id">
+    <button type="submit">Accedi &rarr;</button>
+    <hr>
+    <button type="button" (click)="toggleCreateAccount()">
+      {{ showCreateAccount() ? 'Annulla' : 'Crea Account' }}
+    </button>
+</div>
+
+@if (showCreateAccount()) {
+  <div>
+    <label for="id2">id</label>
+    <input type="text" id="id2" name="id2">
+    <label for="name">Nome:</label>
+    <input type="text" id="name" name="name">
+    <button type="submit">Crea</button>
+  </div>
+}
