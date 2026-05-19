@@ -1,8 +1,9 @@
 export interface Account {
   id: number;
-  name: string;
+  owner_name: string;
   currency: string;
   createdAt: string;
+  balance: number;
 }
 
 export interface Transaction    {

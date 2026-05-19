@@ -9,4 +9,13 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
+  login(): void {
+    localStorage.setItem('token', 'loged_in');
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('account');
+  }
+
 }

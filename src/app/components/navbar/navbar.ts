@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { AuthService } from '../../service/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -22,4 +24,14 @@ import { MatListModule } from '@angular/material/list';
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
-export class Navbar {}
+export class Navbar {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
+  
+  logout(): void {
+    this.router.navigate(['/login']);
+    this.authService.logout();
+  }
+}

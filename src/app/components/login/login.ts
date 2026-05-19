@@ -1,8 +1,8 @@
 import { Component, Signal, signal } from '@angular/core';
 import { ServizioSaldo } from '../../service/servizio-saldo';
+import { AuthService } from '../../service/auth-service';
 import { FormsModule } from '@angular/forms';
-import { Account } from '../../model/saldo/saldo-module';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,15 +12,19 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class Login {
 
-  constructor(private BankingService: ServizioSaldo) { }
+  constructor(
+    private BankingService: ServizioSaldo,
+    private AuthService: AuthService,
+    private router: Router
+  ) { }
 
 
-  protected account: Account = {
+  protected account = signal({
     id: 0,
     name: "",
     currency: "",
     createdAt: ""
-  };
+  }) ;
 
   protected readonly showCreateAccount = signal(false);
 
@@ -29,21 +33,39 @@ export class Login {
   }
 
   protected enterAccount(): void {
-      if(this.account.id<=0){
+      if(this.account().id<=0){
         alert("Id non valido");
         return;
       }
 
-      this.BankingService.getBalance(this.account.id.toString()).subscribe({
-        next: (data) => {
-          this.BankingService.accounts.set(data);
-          console.log(this.BankingService.accounts());
+      this.BankingService.getBalance(this.account().id.toString()).subscribe({
+        next: (account) => {
+          this.BankingService.setAccount(account);
+          this.AuthService.login();
+          this.router.navigate(['/home']);
         },
         error: (err) => {
-          alert("Account non trovato");
-          console.error(err);
+          alert("Errore durante il recupero del saldo. Verifica l'ID e riprova.");
         }
       });
-  
+
+      
+  }
+
+  protected createAccount(): void {
+    if (!this.account().name || !this.account().currency) {
+      alert("Tutti i campi sono obbligatori.");
+      return;
+    }
+    
+    this.BankingService.createAccount(this.account().name, this.account().currency).subscribe({
+      next: (account) => {
+        this.BankingService.updateNameCurrency(this.account().name, this.account().currency);
+        this.AuthService.login();
+        this.router.navigate(['/home']);
+      }
+    });
+    alert("Account creato con successo! Ora puoi accedere con l'ID dell'account.");
+    this.toggleCreateAccount();
   }
 }

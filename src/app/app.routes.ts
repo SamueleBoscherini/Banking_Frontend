@@ -9,7 +9,7 @@ export const routes: Routes = [
 
   {
     path: '',
-  /*   canActivate: [authGuard], */
+    canActivate: [authGuard],
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: Home }
