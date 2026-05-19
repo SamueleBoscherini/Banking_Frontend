@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Account,Transaction } from '../model/saldo/saldo-module';
 
@@ -11,8 +11,16 @@ export class ServizioSaldo {
 
   private constructor(private http: HttpClient) { }
 
-  getBalance(): Observable<Account[]> {
-    return this.http.get<Account[]>(this.apiUrl);
+  accounts = signal<Account>({
+    id: 0,
+    name: "",
+    currency: "",
+    createdAt: ""
+  });
+
+  getBalance(accountId: string): Observable<Account> {
+    const data =  this.http.get<Account>(`${this.apiUrl}/accounts/${accountId}`);
+    return data;
   }
 
 }

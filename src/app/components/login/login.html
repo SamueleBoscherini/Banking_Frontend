@@ -1,7 +1,7 @@
 <div>
     <label for="id">Id</label>
-    <input type="text" id="id" name="id">
-    <button type="submit">Accedi &rarr;</button>
+    <input type="text" [(ngModel)]="account().id" name="id">
+    <button (click)="enterAccount()">Accedi &rarr;</button>
     <hr>
     <button type="button" (click)="toggleCreateAccount()">
       {{ showCreateAccount() ? 'Annulla' : 'Crea Account' }}
