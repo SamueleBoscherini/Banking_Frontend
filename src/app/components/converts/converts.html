@@ -1,0 +1,29 @@
+<div>
+    <div>
+        <h4>Seleziona per convertire nelle seguenti valute</h4>
+        @for (currency of getCurrencies(); track currency) {
+            <button (click)="convertFiat(currency)">
+                {{ currency }}
+            </button>
+        }
+    </div>
+    <div>
+        <h4>Seleziona per convertire nelle seguenti criptovalute</h4>
+        @for (crypto of getCryptos(); track crypto) {
+            <button (click)="convertCrypto(crypto)">
+                {{ crypto }}
+            </button>
+        }
+    </div>
+</div>
+<div>
+    <div>
+        <p>Il tuo Saldo</p>
+        <h3>{{getSaldo()}}</h3>
+    </div>
+    <h2>&rarr;</h2>
+    <div>
+        <p>Il tuo Saldo Convertito</p>
+        <h3>{{convertedAmount()}}</h3>
+    </div>
+</div>

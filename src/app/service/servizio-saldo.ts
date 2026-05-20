@@ -9,7 +9,60 @@ import { Account, Transactions } from '../model/saldo/saldo-module';
 export class ServizioSaldo {
   private apiUrl = 'https://bankingapi-production-2687.up.railway.app/';
 
+  private currencies: string[] = [
+    "AUD",
+    "BRL",
+    "CAD",
+    "CHF",
+    "CNY",
+    "CZK",
+    "DKK",
+    "EUR",
+    "GBP",
+    "HKD",
+    "HUF",
+    "IDR",
+    "ILS",
+    "INR",
+    "ISK",
+    "JPY",
+    "KRW",
+    "MXN",
+    "MYR",
+    "NOK",
+    "NZD",
+    "PHP",
+    "PLN",
+    "RON",
+    "SEK",
+    "SGD",
+    "THB",
+    "TRY",
+    "USD",
+    "ZAR"
+  ]
+
+  private crypto: string[] = [
+    "BTC",
+    "ETH",
+    "SOL",
+    "BNB",
+    "XRP",
+    "ADA",
+    "DOT",
+    "DOGE",
+    "USDT",
+  ]
+
   private constructor(private http: HttpClient) { }
+
+  getCurrencies(): string[] {
+    return this.currencies;
+  }
+
+  getCrypto(): string[] {
+    return this.crypto;
+  }
 
   private accounts = signal<Account>({
     account_id: 0,
@@ -87,6 +140,14 @@ export class ServizioSaldo {
       description: description || ' '
     };
     return this.http.post<Transactions>(`${this.apiUrl}/accounts/${accountId}/withdrawals`, withdrawalData);
+  }
+
+  getConvertFiat(accountId: string, Currency: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}accounts/${accountId}/balance/convert/fiat?to=${Currency}`);
+  }
+
+  getConvertCrypto(accountId: string, Currency: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}accounts/${accountId}/balance/convert/crypto?to=${Currency}`);
   }
 }
 

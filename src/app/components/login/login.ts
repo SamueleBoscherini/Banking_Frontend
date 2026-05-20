@@ -2,11 +2,12 @@ import { Component, Signal, signal } from '@angular/core';
 import { ServizioSaldo } from '../../service/servizio-saldo';
 import { AuthService } from '../../service/auth-service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
@@ -17,6 +18,10 @@ export class Login {
     private AuthService: AuthService,
     private router: Router
   ) { }
+
+  protected getCurrencies(): string[] {
+    return this.BankingService.getCurrencies();
+  }
 
 
   protected account = signal({
