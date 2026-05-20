@@ -11,8 +11,13 @@ import { Transactions } from '../../model/saldo/saldo-module';
 export class Transaction {
 
   @Input() transazione!: Transactions;
+  @Input() num!: number;
 
-  constructor(private BankingService: ServizioSaldo){};
+  constructor(private BankingService: ServizioSaldo) { };
+
+  protected date(): string {
+    return this.transazione.created_at.split('.')[0].replace('T', ' ');
+  }
 
 
 }

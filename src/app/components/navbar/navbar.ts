@@ -29,7 +29,7 @@ export class Navbar {
     private authService: AuthService,
     private router: Router
   ) { }
-  
+
   logout(): void {
     this.router.navigate(['/login']);
     this.authService.logout();

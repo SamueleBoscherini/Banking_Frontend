@@ -1,0 +1,11 @@
+<div>
+    <h1>Saldo attuale: {{ saldo() }}</h1>
+
+</div>
+<div>
+    <label for="prelievo">Importo del prelievo:</label>
+    <input type="number" [(ngModel)]="importoPrelievo">
+    <label for="description">Descrizione:</label>
+    <input type="text" [(ngModel)]="descrizionePrelievo">
+    <button (click)="effettuaPrelievo()">Effettua prelievo</button>
+</div>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, signal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Account,Transactions } from '../model/saldo/saldo-module';
+import { Account, Transactions } from '../model/saldo/saldo-module';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +18,18 @@ export class ServizioSaldo {
     createdAt: "",
     balance: 0
   });
+
+  getAccountId(): number {
+    return this.accounts().account_id;
+  }
+
+  getAccountName(): string {
+    return this.accounts().owner_name;
+  }
+
+  getAccountBalance(): number {
+    return this.accounts().balance;
+  }
 
   getBalance(accountId: string): Observable<Account> {
     return this.http.get<Account>(`${this.apiUrl}/accounts/${accountId}/balance`);
@@ -38,26 +50,10 @@ export class ServizioSaldo {
     localStorage.setItem('account', JSON.stringify(this.accounts()));
   }
 
-  getAccount(): Signal<Account> {
-    return this.accounts;
+  getAccount(): Account {
+    return this.accounts();
   }
 
-  getAccountName(): string {  
-    return this.accounts().owner_name;
-  }
-
-  getAccountBalance(): number {
-    return this.accounts().balance;
-  }
-
-  getAccountId(): number {
-    return this.accounts().account_id;
-  }
-
-  getAccountCurrency(): string {
-    return this.accounts().currency;
-  }
-  
   createAccount(ownerName: string, currency: string): Observable<Account> {
     const newAccount = {
       owner_name: ownerName,
@@ -74,5 +70,23 @@ export class ServizioSaldo {
   getTransactionById(accountId: string, transactionId: string): Observable<Transactions> {
     return this.http.get<Transactions>(`${this.apiUrl}/accounts/${accountId}/transactions/${transactionId}`);
   }
+
+  setDeposit(accountId: string, amount: number, description?: string): Observable<Transactions> {
+    const depositData = {
+      type: 'deposit',
+      amount: amount,
+      description: description || ' '
+    };
+    return this.http.post<Transactions>(`${this.apiUrl}/accounts/${accountId}/deposits`, depositData);
+  }
+
+  setWithdrawal(accountId: string, amount: number, description?: string): Observable<Transactions> {
+    const withdrawalData = {
+      type: 'withdrawal',
+      amount: amount,
+      description: description || ' '
+    };
+    return this.http.post<Transactions>(`${this.apiUrl}/accounts/${accountId}/withdrawals`, withdrawalData);
+  }
 }
-        
+

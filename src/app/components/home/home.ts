@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, Signal } from '@angular/core';
 import { ServizioSaldo } from '../../service/servizio-saldo';
 import { TransactionsList } from '../transactions-list/transactions-list';
+import { Account } from '../../model/saldo/saldo-module';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +10,20 @@ import { TransactionsList } from '../transactions-list/transactions-list';
   styleUrl: './home.scss',
 })
 export class Home {
-  
+
   constructor(private BankingService: ServizioSaldo) { }
 
+  account: Signal<Account> = computed(() => this.BankingService.getAccount());
+
   getAccountName(): string {
-    return this.BankingService.getAccountName();
+    return this.account().owner_name;
   }
 
   getAccountBalance(): number {
-    return this.BankingService.getAccountBalance();
+    return this.account().balance;
   }
 
   getAccountCurrency(): string {
-    return this.BankingService.getAccountCurrency();
+    return this.account().currency;
   }
 }

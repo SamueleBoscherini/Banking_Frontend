@@ -1,11 +1,11 @@
 <div>
-    @for ( t of transazioni().slice(min,max); track t.id) {
-    <app-transaction [transazione] = "t" >
-    </app-transaction>
- } @empty {
-    <p>no transactions</p>
- }
- <button (click) = "back()">&larr; indietro</button>
- {{qta}}
- <button (click) = "go()">Avanti &rarr;</button>
+   @for ( t of transazioni().slice(min,max); track t.id) {
+   <app-transaction [transazione]="t" [num]="transazioni().indexOf(t) + 1">
+   </app-transaction>
+   } @empty {
+   <p>no transactions</p>
+   }
+   <button (click)="back()">&larr; indietro</button>
+   {{qta}}
+   <button (click)="go()">Avanti &rarr;</button>
 </div>

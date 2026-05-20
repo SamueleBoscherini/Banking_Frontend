@@ -22,9 +22,9 @@ export class Login {
   protected account = signal({
     id: 0,
     name: "",
-    currency: "",
+    currency: "EUR",
     createdAt: ""
-  }) ;
+  });
 
   protected readonly showCreateAccount = signal(false);
 
@@ -33,23 +33,23 @@ export class Login {
   }
 
   protected enterAccount(): void {
-      if(this.account().id<=0){
-        alert("Id non valido");
-        return;
+    if (this.account().id <= 0) {
+      alert("Id non valido");
+      return;
+    }
+
+    this.BankingService.getBalance(this.account().id.toString()).subscribe({
+      next: (account) => {
+        this.BankingService.setAccount(account);
+        this.AuthService.login();
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        alert("Errore durante il recupero del saldo. Verifica l'ID e riprova.");
       }
+    });
 
-      this.BankingService.getBalance(this.account().id.toString()).subscribe({
-        next: (account) => {
-          this.BankingService.setAccount(account);
-          this.AuthService.login();
-          this.router.navigate(['/home']);
-        },
-        error: (err) => {
-          alert("Errore durante il recupero del saldo. Verifica l'ID e riprova.");
-        }
-      });
 
-      
   }
 
   protected createAccount(): void {
@@ -57,7 +57,7 @@ export class Login {
       alert("Tutti i campi sono obbligatori.");
       return;
     }
-    
+
     this.BankingService.createAccount(this.account().name, this.account().currency).subscribe({
       next: (account) => {
         this.BankingService.updateNameCurrency(this.account().name, this.account().currency);

@@ -6,12 +6,12 @@ export interface Account {
   balance: number;
 }
 
-export interface Transactions    {
+export interface Transactions {
   id: number;
   accountId: number;
-  type: string; 
+  type: string;
   amount: number;
   description: string;
   balanceAfter: number;
-  date: string;
+  created_at: string;
 }

@@ -17,7 +17,7 @@
     </button>
     <button mat-menu-item>
       <mat-icon>logout</mat-icon>
-      <span (click) = "logout()">Logout</span>
+      <span (click)="logout()">Logout</span>
     </button>
   </mat-menu>
 </mat-toolbar>
@@ -26,8 +26,9 @@
   <mat-sidenav #sidenav mode="over" opened="false">
     <mat-nav-list>
       <a mat-list-item routerLink="/">Home</a>
-      <a mat-list-item routerLink="/chi-siamo">Chi Siamo</a>
-      <a mat-list-item routerLink="/contatti">Contatti</a>
+      <a mat-list-item routerLink="/chi-siamo">Grafico</a>
+      <a mat-list-item routerLink="/deposits">Deposito</a>
+      <a mat-list-item routerLink="/contatti">Prelievo</a>
     </mat-nav-list>
   </mat-sidenav>
 
