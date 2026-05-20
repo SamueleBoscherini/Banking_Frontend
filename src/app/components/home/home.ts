@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ServizioSaldo } from '../../service/servizio-saldo';
+import { TransactionsList } from '../transactions-list/transactions-list';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [TransactionsList],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
@@ -17,5 +18,9 @@ export class Home {
 
   getAccountBalance(): number {
     return this.BankingService.getAccountBalance();
+  }
+
+  getAccountCurrency(): string {
+    return this.BankingService.getAccountCurrency();
   }
 }

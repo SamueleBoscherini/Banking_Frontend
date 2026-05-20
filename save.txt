@@ -1,0 +1,16 @@
+ /* transazioni: Signal<Transactions[]>;
+  
+  constructor(private BankingService: ServizioSaldo){
+    console.log("accountId in transactions-list:", this.BankingService.getAccountId());
+    const accountId = this.BankingService.getAccountId().toString();
+    console.log(toSignal(this.BankingService.getTransactions(accountId)));
+    this.transazioni = toSignal(this.BankingService.getTransactions(accountId).transactions, { initialValue: [{
+      id: 0,
+      accountId: 0,
+      type: "",
+      amount: 0,
+      description: "",
+      balanceAfter: 0,
+      date: ""
+     }] });
+  }; */

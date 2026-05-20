@@ -1,0 +1,11 @@
+<div class="card" style="display: flex; gap: 15px; align-items: center; white-space: nowrap;">
+    <h3>transazione n°: {{transazione.id}}</h3>
+    <span>tipo: {{transazione.type}}</span>
+    <span>description: {{transazione.description}}</span>
+    <span>effettuata: {{transazione.date}}</span>
+    @if(transazione.type === "deposit"){
+    <span>quantity: -{{transazione.amount}}</span>
+    } @else {
+    <span>quantity: +{{transazione.amount}}</span>
+    }
+</div>

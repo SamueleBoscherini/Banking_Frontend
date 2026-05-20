@@ -1,0 +1,6 @@
+.card {
+    display: flex;            /* Allinea tutti gli elementi in orizzontale */
+    gap: 15px;                /* Crea lo spazio orizzontale tra un dato e l'altro */
+    align-items: center;      /* Allinea perfettamente i testi al centro in verticale */
+    white-space: nowrap;      /* Impedisce ai dati di andare a capo se lo schermo è stretto */
+}

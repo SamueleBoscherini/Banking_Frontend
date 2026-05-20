@@ -2,6 +2,12 @@
     <div>
         <h1>Nome: {{getAccountName()}}</h1>
         <p>iban: xxx</p>
-        <h4>Saldo: {{getAccountBalance()}}</h4>
     </div>
+    <div>
+        <h3>Saldo: <span>{{getAccountBalance()}}</span></h3>
+        <span>currency: {{getAccountCurrency()}}</span>
+    </div>
+
+    <app-transactions-list>
+    </app-transactions-list> 
 </div>

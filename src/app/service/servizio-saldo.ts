@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, signal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Account,Transaction } from '../model/saldo/saldo-module';
+import { Account,Transactions } from '../model/saldo/saldo-module';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class ServizioSaldo {
   private constructor(private http: HttpClient) { }
 
   private accounts = signal<Account>({
-    id: 0,
+    account_id: 0,
     owner_name: "",
     currency: "",
     createdAt: "",
@@ -25,17 +25,16 @@ export class ServizioSaldo {
 
   setAccount(account: Account): void {
     this.accounts.set(account);
+    console.log("Account set in service:", this.accounts());
     localStorage.setItem('account', JSON.stringify(account));
   }
 
   updateNameCurrency(Name: string, Currency: string): void {
-    console.log("dati pre aggiornamento:", this.accounts());  
     this.accounts.update(acc => ({
       ...acc,
       owner_name: Name,
       currency: Currency
     }));
-    console.log("Aggiornamento account con dati:", this.accounts());
     localStorage.setItem('account', JSON.stringify(this.accounts()));
   }
 
@@ -50,6 +49,14 @@ export class ServizioSaldo {
   getAccountBalance(): number {
     return this.accounts().balance;
   }
+
+  getAccountId(): number {
+    return this.accounts().account_id;
+  }
+
+  getAccountCurrency(): string {
+    return this.accounts().currency;
+  }
   
   createAccount(ownerName: string, currency: string): Observable<Account> {
     const newAccount = {
@@ -58,6 +65,14 @@ export class ServizioSaldo {
     };
     console.log("Creazione account con dati:", newAccount);
     return this.http.post<Account>(`${this.apiUrl}/accounts`, newAccount);
+  }
+
+  getTransactions(accountId: string): Observable<Transactions[]> {
+    return this.http.get<Transactions[]>(`${this.apiUrl}/accounts/${accountId}/transactions`);
+  }
+
+  getTransactionById(accountId: string, transactionId: string): Observable<Transactions> {
+    return this.http.get<Transactions>(`${this.apiUrl}/accounts/${accountId}/transactions/${transactionId}`);
   }
 }
         
