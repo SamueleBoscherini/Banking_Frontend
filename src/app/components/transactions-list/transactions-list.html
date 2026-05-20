@@ -1,4 +1,11 @@
 <div>
-    <app-transaction *ngFor="let t of transazioni() | slice:0,5" [transazione] = "t">
+    @for ( t of transazioni().slice(min,max); track t.id) {
+    <app-transaction [transazione] = "t" >
     </app-transaction>
+ } @empty {
+    <p>no transactions</p>
+ }
+ <button (click) = "back()">&larr; indietro</button>
+ {{qta}}
+ <button (click) = "go()">Avanti &rarr;</button>
 </div>

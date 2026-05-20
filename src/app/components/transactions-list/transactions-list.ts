@@ -13,6 +13,9 @@ import { map } from 'rxjs';
   styleUrl: './transactions-list.scss',
 })
 export class TransactionsList {
+  protected max = 5;
+  protected min = 0;
+  protected qta = 1;
 
   transazioni: Signal<Transactions[]>;
 
@@ -35,6 +38,20 @@ export class TransactionsList {
     });
 
   };
+
+  protected go(): void {
+    this.max += 5;
+    this.min += 5;
+    this.qta += 1;
+  }
+
+  protected back(): void {
+    if (this.min > 0) {
+      this.max -= 5;
+      this.min -= 5;
+      this.qta -= 1;
+    }
+  }
 
 
   
