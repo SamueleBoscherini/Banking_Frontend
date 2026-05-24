@@ -53,7 +53,6 @@ export class Login {
     this.isLoading.set(true);
     this.BankingService.getBalance(this.account().id.toString()).subscribe({
       next: (account) => {
-        this.BankingService.setAccount(account);
         this.AuthService.login();
         this.router.navigate(['/home']);
       },
@@ -75,7 +74,7 @@ export class Login {
     this.isLoading.set(true);
     this.BankingService.createAccount(this.account().name, this.account().currency).subscribe({
       next: (account) => {
-        this.BankingService.updateAccount(this.account().name, this.account().currency, (account as any).accountId);
+        this.BankingService.updateAccountInt(this.account().name, this.account().currency, (account as any).accountId);
         this.AuthService.login();
         this.router.navigate(['/home']);
       },

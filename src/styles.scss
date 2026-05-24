@@ -17,6 +17,31 @@
   --glass-border: rgba(255, 255, 255, 0.08);
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
   --shadow-glow: 0 0 20px rgba(34, 211, 160, 0.08);
+  --bg-gradient-1: radial-gradient(ellipse 80% 60% at 0% 20%, rgba(34, 211, 160, 0.03) 0%, transparent 60%);
+  --bg-gradient-2: radial-gradient(ellipse 60% 50% at 100% 80%, rgba(240, 180, 41, 0.02) 0%, transparent 60%);
+  --color-scheme: dark;
+}
+
+.light-theme {
+  --bg-primary: #f5f7fa;
+  --bg-secondary: #ffffff;
+  --bg-card: rgba(0, 0, 0, 0.03);
+  --bg-card-hover: rgba(0, 0, 0, 0.06);
+  --text-primary: #1a1d2e;
+  --text-secondary: #6b7085;
+  --accent-gold: #f0b429;
+  --accent-teal: #22d3a0;
+  --accent-teal-dim: rgba(34, 211, 160, 0.10);
+  --accent-red: #ef4444;
+  --accent-red-dim: rgba(239, 68, 68, 0.08);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.10);
+  --shadow-glow: 0 0 20px rgba(34, 211, 160, 0.12);
+  --bg-gradient-1: radial-gradient(ellipse 80% 60% at 0% 20%, rgba(34, 211, 160, 0.06) 0%, transparent 60%);
+  --bg-gradient-2: radial-gradient(ellipse 60% 50% at 100% 80%, rgba(240, 180, 41, 0.04) 0%, transparent 60%);
+  --color-scheme: light;
 }
 
 html {
@@ -36,11 +61,9 @@ html {
 }
 
 body {
-  color-scheme: dark;
+  color-scheme: var(--color-scheme);
   background: var(--bg-primary);
-  background-image:
-    radial-gradient(ellipse 80% 60% at 0% 20%, rgba(34, 211, 160, 0.03) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 100% 80%, rgba(240, 180, 41, 0.02) 0%, transparent 60%);
+  background-image: var(--bg-gradient-1), var(--bg-gradient-2);
   color: var(--text-primary);
   font: var(--mat-sys-body-medium);
   margin: 0;
@@ -89,6 +112,11 @@ select {
 option {
   background: #1a1d2e;
   color: #f0f2f8;
+}
+
+.light-theme option {
+  background: #ffffff;
+  color: #1a1d2e;
 }
 
 label {
@@ -220,5 +248,23 @@ h3 {
 
   &:hover {
     background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+@media (max-width: 600px) {
+  input[type="text"],
+  input[type="number"],
+  select {
+    padding: 10px 14px;
+    font-size: 16px;
+  }
+
+  button:not([mat-icon-button]):not([mat-menu-item]):not([mat-list-item]) {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.3rem;
   }
 }

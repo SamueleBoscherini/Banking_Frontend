@@ -1,0 +1,97 @@
+<div class="settings-container">
+  <div class="page-header">
+    <h1>Impostazioni</h1>
+    <p class="page-subtitle">Gestisci il tuo account e le preferenze dell'app</p>
+  </div>
+
+  <div class="profile-card">
+    <img class="profile-avatar" [src]="themeService.getImgUrl()" alt="avatar">
+    <div class="profile-info">
+      <h2>{{ account().owner_name }}</h2>
+      <div class="profile-meta">
+        <span class="meta-item">
+          <mat-icon>badge</mat-icon>
+          ID: {{ account().account_id }}
+        </span>
+        <span class="meta-item">
+          <mat-icon>calendar_today</mat-icon>
+          Dal {{ account().created_at | date:'mediumDate' }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-grid">
+    <div class="setting-card">
+      <div class="card-header">
+        <mat-icon>person</mat-icon>
+        <h2>Account Data</h2>
+      </div>
+
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-label">Valuta</span>
+          <span class="info-value">{{ account().currency }}</span>
+        </div>
+
+        <div class="form-section">
+          <label for="nome">Nome intestatario</label>
+          <div class="input-row">
+            <input [(ngModel)]="account().owner_name" type="text" name="nome" id="nome" placeholder="Nuovo nome">
+            <button class="btn-sm" (click)="updateName()">Salva</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setting-card">
+      <div class="card-header">
+        <mat-icon>palette</mat-icon>
+        <h2>Aspetto</h2>
+      </div>
+
+      <div class="card-body">
+        <div class="theme-toggle">
+          <span class="toggle-label">Tema {{ themeService.isDark() ? 'Scuro' : 'Chiaro' }}</span>
+          <button class="toggle-switch" (click)="toggleTheme()" [attr.aria-label]="themeService.isDark() ? 'Attiva tema chiaro' : 'Attiva tema scuro'">
+            <span class="toggle-track">
+              <span class="toggle-thumb" [class.active]="!themeService.isDark()">
+                <mat-icon>{{ themeService.isDark() ? 'dark_mode' : 'light_mode' }}</mat-icon>
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="setting-card">
+      <div class="card-header">
+        <mat-icon>image</mat-icon>
+        <h2>App</h2>
+      </div>
+
+      <div class="card-body">
+        <label for="image">URL immagine profilo</label>
+        <div class="input-row">
+          <input [(ngModel)]="imageUrl" type="text" id="image" name="image" placeholder="https://esempio.com/avatar.jpg">
+          <button class="btn-sm" (click)="changeImg()">Applica</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="setting-card danger-zone">
+      <div class="card-header">
+        <mat-icon>warning</mat-icon>
+        <h2>Eliminazione</h2>
+      </div>
+
+      <div class="card-body">
+        <p class="danger-text">Questa azione è irreversibile. L'account e tutti i dati associati verranno eliminati permanentemente.</p>
+        <button class="btn-danger" (click)="delete()">
+          <mat-icon>delete_forever</mat-icon>
+          Elimina Account
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

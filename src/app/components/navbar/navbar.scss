@@ -87,3 +87,31 @@ mat-sidenav-content {
   color: var(--text-secondary);
   opacity: 0.6;
 }
+
+@media (max-width: 600px) {
+  mat-sidenav-container {
+    margin-top: 56px;
+    height: calc(100vh - 56px);
+  }
+
+  mat-sidenav {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+
+    .navbar-brand-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    margin-left: 8px;
+  }
+}

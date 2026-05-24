@@ -1,0 +1,356 @@
+.settings-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.page-header {
+  margin-bottom: 32px;
+
+  h1 {
+    font-size: 1.75rem;
+    background: linear-gradient(135deg, var(--accent-teal), var(--accent-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 10px;
+  }
+
+  .page-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+}
+
+.profile-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  .profile-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-teal);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .profile-info {
+    flex: 1;
+
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+  }
+
+  .profile-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+
+      mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        color: var(--accent-teal);
+      }
+    }
+  }
+}
+
+.settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.setting-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 28px 0;
+
+  mat-icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    color: var(--accent-teal);
+  }
+
+  h2 {
+    font-size: 1.05rem;
+  }
+}
+
+.card-body {
+  padding: 16px 28px 24px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 16px;
+
+  .info-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .info-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+  }
+}
+
+.form-section {
+  label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    display: block;
+  }
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  input {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.btn-sm {
+  background: linear-gradient(135deg, var(--accent-teal), #1aa57a);
+  color: #0b0e1a;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(34, 211, 160, 0.25);
+  }
+}
+
+.theme-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .toggle-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+}
+
+.toggle-switch {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.toggle-track {
+  display: flex;
+  align-items: center;
+  width: 52px;
+  height: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 2px;
+  transition: all 0.3s ease;
+}
+
+.toggle-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-teal);
+  transition: all 0.3s ease;
+  transform: translateX(0);
+
+  &.active {
+    transform: translateX(24px);
+    background: var(--accent-gold);
+  }
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    color: #0b0e1a;
+    line-height: 14px;
+  }
+}
+
+.danger-zone {
+  border-color: var(--accent-red-dim) !important;
+
+  .card-header mat-icon {
+    color: var(--accent-red);
+  }
+
+  .card-header h2 {
+    color: var(--accent-red);
+  }
+}
+
+.danger-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--accent-red), #dc2626);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+  }
+}
+
+@media (max-width: 600px) {
+  .settings-container {
+    padding: 16px 12px;
+  }
+
+  .page-header {
+    margin-bottom: 24px;
+
+    h1 {
+      font-size: 1.4rem;
+    }
+  }
+
+  .profile-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 16px;
+
+    .profile-avatar {
+      width: 56px;
+      height: 56px;
+    }
+
+    .profile-info h2 {
+      font-size: 1.1rem;
+    }
+
+    .profile-meta {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
+  .card-header {
+    padding: 16px 20px 0;
+  }
+
+  .card-body {
+    padding: 12px 20px 20px;
+  }
+
+  .input-row {
+    flex-direction: column;
+    gap: 8px;
+
+    input {
+      width: 100%;
+    }
+
+    .btn-sm {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .danger-text {
+    font-size: 0.8rem;
+  }
+
+  .btn-danger {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .settings-container {
+    padding: 24px 16px;
+  }
+
+  .profile-card {
+    padding: 24px;
+  }
+}

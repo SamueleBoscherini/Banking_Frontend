@@ -7,7 +7,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AuthService } from '../../service/auth-service';
+import { ThemeService } from '../../service/theme-service';
 import { Router } from '@angular/router';
+import { routeAnimations } from '../../route-animations';
 
 @Component({
   selector: 'app-navbar',
@@ -23,15 +25,21 @@ import { Router } from '@angular/router';
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
+  animations: [routeAnimations],
 })
 export class Navbar {
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public themeService: ThemeService
   ) { }
 
   logout(): void {
     this.router.navigate(['/login']);
     this.authService.logout();
+  }
+
+  getRouteAnimationState(outlet: RouterOutlet): string {
+    return outlet?.activatedRouteData?.['animation'] ?? '';
   }
 }

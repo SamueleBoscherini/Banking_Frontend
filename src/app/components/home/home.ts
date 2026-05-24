@@ -29,4 +29,8 @@ export class Home {
   getAccountCurrency(): string {
     return this.account().currency;
   }
+
+  getAccountId(): number{
+    return this.account().account_id;
+  }
 }

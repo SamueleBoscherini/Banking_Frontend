@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 import { Account, Transactions } from '../model/saldo/saldo-module';
 
 @Injectable({
@@ -68,7 +68,7 @@ export class ServizioSaldo {
     account_id: 0,
     owner_name: "",
     currency: "",
-    createdAt: "",
+    created_at: "",
     balance: 0
   });
 
@@ -85,7 +85,21 @@ export class ServizioSaldo {
   }
 
   getBalance(accountId: string): Observable<Account> {
-    return this.http.get<Account>(`${this.apiUrl}/accounts/${accountId}/balance`);
+    return this.http.get<Account>(`${this.apiUrl}/accounts/${accountId}/balance`).pipe(
+      switchMap((balanceData) =>
+        this.getFullAccount(accountId).pipe(
+          tap((fullAccount) => {
+            console.log(fullAccount)
+            this.setAccount({
+              ...fullAccount,
+              account_id: (fullAccount as any).id,
+              balance: balanceData.balance 
+            });
+            console.log("account nuovo",this.accounts())
+          })
+        )
+      )
+    );
   }
 
   setAccount(account: Account): void {
@@ -93,7 +107,7 @@ export class ServizioSaldo {
     localStorage.setItem('account', JSON.stringify(account));
   }
 
-  updateAccount(Name: string, Currency: string,AccountId: string): void {
+  updateAccountInt(Name: string, Currency: string,AccountId: string): void {
     console.log(AccountId);
     this.accounts.update(acc => ({
       ...acc,
@@ -107,6 +121,10 @@ export class ServizioSaldo {
 
   getAccount(): Account {
     return this.accounts();
+  }
+
+  getFullAccount(AccountId: string): Observable<Account>{
+    return this.http.get<Account>(`${this.apiUrl}/accounts/${AccountId}`);
   }
 
   createAccount(ownerName: string, currency: string): Observable<Account> {
@@ -149,6 +167,14 @@ export class ServizioSaldo {
 
   getConvertCrypto(accountId: string, Currency: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}accounts/${accountId}/balance/convert/crypto?to=${Currency}`);
+  }
+
+  updateAccount(accountId: string,owner_name: string): Observable<any>{
+    return this.http.put<Account>(`${this.apiUrl}accounts/${accountId}`, { owner_name })  
+  }
+
+  deleteAccount(accountId: string): Observable<any>{
+    return this.http.delete<Account>(`${this.apiUrl}accounts/${accountId}`)
   }
 }
 

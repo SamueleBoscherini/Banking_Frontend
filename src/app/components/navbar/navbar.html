@@ -9,14 +9,17 @@
 
   <span class="spacer"></span>
 
-  <img class="user-avatar" src="https://ui-avatars.com/api/?name=Utente&background=22d3a0&color=fff&size=80" alt="avatar">
+  <button mat-icon-button (click)="themeService.toggle()" [attr.aria-label]="themeService.isDark() ? 'Attiva tema chiaro' : 'Attiva tema scuro'">
+    <mat-icon>{{ themeService.isDark() ? 'dark_mode' : 'light_mode' }}</mat-icon>
+  </button>
+  <img class="user-avatar" [src]="themeService.getImgUrl()" alt="avatar">
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item>
       <mat-icon>settings</mat-icon>
-      <span>Impostazioni</span>
+      <span routerLink="/option">Impostazioni</span>
     </button>
     <button mat-menu-item>
       <mat-icon>logout</mat-icon>
@@ -57,6 +60,8 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <router-outlet />
+    <div [@routeAnimations]="getRouteAnimationState(routerOutlet)" style="min-height: 100%;">
+      <router-outlet #routerOutlet="outlet" />
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

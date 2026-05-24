@@ -18,6 +18,8 @@
       <mat-icon>receipt_long</mat-icon>
       Storico Transazioni
     </h3>
-    <app-transactions-list></app-transactions-list>
+    @if (getAccountId() > 0) {
+      <app-transactions-list />
+    }
   </div>
 </div>

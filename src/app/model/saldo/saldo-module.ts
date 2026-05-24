@@ -2,7 +2,7 @@ export interface Account {
   account_id: number;
   owner_name: string;
   currency: string;
-  createdAt: string;
+  created_at: string;
   balance: number;
 }
 

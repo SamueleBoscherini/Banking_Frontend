@@ -87,3 +87,43 @@
   padding: 32px;
   box-shadow: var(--shadow-card);
 }
+
+@media (max-width: 600px) {
+  .home-container {
+    padding: 16px 12px;
+  }
+
+  .account-header {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .account-info {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .account-balance-section {
+    text-align: left;
+    width: 100%;
+
+    .balance-amount {
+      font-size: 1.6rem;
+    }
+  }
+
+  .transactions-wrapper {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .home-container {
+    padding: 24px 16px;
+  }
+
+  .account-header {
+    padding: 24px;
+  }
+}

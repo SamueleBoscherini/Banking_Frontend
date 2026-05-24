@@ -58,6 +58,10 @@ export class Graphics {
     this.createChart(this.selectedYear());
   }
 
+  private isMobile(): boolean {
+    return window.innerWidth < 600;
+  }
+
   private createChart(year: number): void {
     const yearTransactions = this.allTransactions.filter(t => {
       const date = new Date(t.created_at);
@@ -82,11 +86,17 @@ export class Graphics {
       }
     });
 
-    const months = [
+    const mobile = this.isMobile();
+    const monthsLong = [
       'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
       'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre',
     ];
+    const monthsShort = [
+      'Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu',
+      'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic',
+    ];
 
+    const labels = mobile ? monthsShort : monthsLong;
     const currency = this.BankingService.getAccount()?.currency ?? 'EUR';
 
     const canvas = document.getElementById('transactionChart') as HTMLCanvasElement;
@@ -102,7 +112,7 @@ export class Graphics {
     this.chart = new Chart(canvas, {
       type: 'bar',
       data: {
-        labels: months,
+        labels,
         datasets: [
           {
             label: 'Depositi',
@@ -110,6 +120,8 @@ export class Graphics {
             backgroundColor: 'rgba(75, 192, 192, 0.7)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
+            borderRadius: mobile ? 4 : 2,
+            maxBarThickness: mobile ? 12 : undefined,
           },
           {
             label: 'Prelievi',
@@ -117,19 +129,32 @@ export class Graphics {
             backgroundColor: 'rgba(255, 99, 132, 0.7)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1,
+            borderRadius: mobile ? 4 : 2,
+            maxBarThickness: mobile ? 12 : undefined,
           },
         ],
       },
       options: {
         responsive: true,
+        maintainAspectRatio: !mobile,
+        ...(mobile && { aspectRatio: 1.2 }),
         plugins: {
           title: {
             display: true,
             text: `Transazioni ${year}`,
-            font: { size: 18 },
+            font: { size: mobile ? 14 : 18 },
           },
-          legend: { position: 'top' },
+          legend: {
+            position: mobile ? 'bottom' : 'top',
+            labels: {
+              boxWidth: mobile ? 12 : 20,
+              boxHeight: mobile ? 12 : 20,
+              font: { size: mobile ? 11 : 13 },
+            },
+          },
           tooltip: {
+            titleFont: { size: mobile ? 12 : 14 },
+            bodyFont: { size: mobile ? 11 : 13 },
             callbacks: {
               label: (context) => {
                 const value = context.parsed.y ?? 0;
@@ -145,13 +170,25 @@ export class Graphics {
           y: {
             beginAtZero: true,
             ticks: {
+              font: { size: mobile ? 10 : 12 },
               callback: (value) =>
                 Number(value).toLocaleString('it-IT', { style: 'currency', currency }),
             },
-            title: { display: true, text: `Importo (${currency})` },
+            title: {
+              display: !mobile,
+              text: `Importo (${currency})`,
+            },
           },
           x: {
-            title: { display: true, text: 'Mese' },
+            ticks: {
+              font: { size: mobile ? 10 : 12 },
+              maxRotation: mobile ? 0 : 45,
+              autoSkip: false,
+            },
+            title: {
+              display: !mobile,
+              text: 'Mese',
+            },
           },
         },
       },

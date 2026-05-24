@@ -74,3 +74,50 @@ canvas {
   height: auto !important;
   border-radius: 12px;
 }
+
+@media (max-width: 600px) {
+  .page-container {
+    padding: 16px 12px;
+  }
+
+  .page-title {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .chart-card {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .chart-header {
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+  }
+
+  .year-select {
+    min-width: 100px;
+    padding: 8px 32px 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  canvas {
+    max-height: 280px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .page-container {
+    padding: 24px 16px;
+  }
+
+  canvas {
+    max-height: 360px;
+  }
+}
+
+@media (min-width: 901px) {
+  canvas {
+    max-height: 480px;
+  }
+}

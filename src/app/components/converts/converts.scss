@@ -149,3 +149,54 @@
     color: var(--accent-teal);
   }
 }
+
+@media (max-width: 600px) {
+  .page-container {
+    padding: 16px 12px;
+  }
+
+  .page-title {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .convert-section {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .currency-btn {
+    padding: 8px 14px;
+    font-size: 0.8rem !important;
+  }
+
+  .result-section {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .conversion-result {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .convert-arrow {
+    transform: rotate(90deg);
+    font-size: 1.4rem;
+  }
+
+  .balance-box,
+  .result-box {
+    width: 100%;
+
+    .box-value {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .page-container {
+    padding: 24px 16px;
+  }
+}

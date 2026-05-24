@@ -79,3 +79,29 @@
   color: var(--text-secondary);
   font-size: 0.9rem;
 }
+
+@media (max-width: 600px) {
+  .page-container {
+    padding: 16px 12px;
+  }
+
+  .balance-card {
+    padding: 20px;
+    border-radius: 14px;
+
+    .balance-value {
+      font-size: 1.6rem;
+    }
+  }
+
+  .form-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .page-container {
+    padding: 24px 16px;
+  }
+}
