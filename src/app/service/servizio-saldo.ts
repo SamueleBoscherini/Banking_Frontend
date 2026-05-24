@@ -7,7 +7,7 @@ import { Account, Transactions } from '../model/saldo/saldo-module';
   providedIn: 'root',
 })
 export class ServizioSaldo {
-  private apiUrl = 'https://bankingapi-production-2687.up.railway.app/';
+  private apiUrl = 'https://bankingapi-production-5dc6.up.railway.app/';
 
   private currencies: string[] = [
     "AUD",
@@ -90,16 +90,18 @@ export class ServizioSaldo {
 
   setAccount(account: Account): void {
     this.accounts.set(account);
-    console.log("Account set in service:", this.accounts());
     localStorage.setItem('account', JSON.stringify(account));
   }
 
-  updateNameCurrency(Name: string, Currency: string): void {
+  updateAccount(Name: string, Currency: string,AccountId: string): void {
+    console.log(AccountId);
     this.accounts.update(acc => ({
       ...acc,
+      account_id: Number(AccountId),
       owner_name: Name,
       currency: Currency
     }));
+    console.log("Account aggiornato in servizio:", this.accounts());
     localStorage.setItem('account', JSON.stringify(this.accounts()));
   }
 
@@ -112,7 +114,6 @@ export class ServizioSaldo {
       owner_name: ownerName,
       currency: currency
     };
-    console.log("Creazione account con dati:", newAccount);
     return this.http.post<Account>(`${this.apiUrl}/accounts`, newAccount);
   }
 

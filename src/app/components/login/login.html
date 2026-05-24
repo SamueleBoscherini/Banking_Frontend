@@ -1,24 +1,61 @@
-<div>
-  <label for="id">Id</label>
-  <input type="text" [(ngModel)]="account().id" name="id">
-  <button [disabled]="showCreateAccount()" (click)="enterAccount()">Accedi &rarr;</button>
-  <hr>
-  <button type="button" (click)="toggleCreateAccount()">
-    {{ showCreateAccount() ? 'Annulla' : 'Crea Account' }}
-  </button>
-</div>
+<div class="login-page">
+  <div class="login-card">
+    <h1>Banca Progetto</h1>
+    <p class="subtitle">Accedi al tuo conto o creane uno nuovo</p>
 
-@if (showCreateAccount()) {
-<div>
-  <label for="name">Nome:</label>
-  <input type="text" [(ngModel)]="account().name" name="name">
-  <select name="currency" [(ngModel)]="account().currency">
-    @for (currency of getCurrencies(); track currency) {
-      <option [value]="currency">
-        {{ currency }}
-      </option>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="mode-access" name="mode" [checked]="!showCreateAccount()" (change)="showCreateAccount.set(false)">
+        <label for="mode-access">
+          <mat-icon>login</mat-icon>
+          Accedi
+        </label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="mode-create" name="mode" [checked]="showCreateAccount()" (change)="showCreateAccount.set(true)">
+        <label for="mode-create">
+          <mat-icon>person_add</mat-icon>
+          Nuovo
+        </label>
+      </div>
+    </div>
+
+    @if (isLoading()) {
+      <div class="login-loading">
+        <mat-spinner [diameter]="32" color="primary"></mat-spinner>
+        <span>Caricamento...</span>
+      </div>
+    } @else {
+      <div class="form-group">
+        <label for="id">ID Account</label>
+        <input type="text" id="id" [(ngModel)]="account().id" name="id" placeholder="Inserisci il tuo ID">
+      </div>
+
+      <button class="btn-primary" [disabled]="showCreateAccount()" (click)="enterAccount()">Accedi &rarr;</button>
+
+      <div class="login-divider">oppure</div>
+
+      <button class="btn-secondary" type="button" (click)="toggleCreateAccount()">
+        {{ showCreateAccount() ? 'Annulla' : 'Crea Account' }}
+      </button>
+
+      @if (showCreateAccount()) {
+        <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color);">
+          <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" id="name" [(ngModel)]="account().name" name="name" placeholder="Il tuo nome">
+          </div>
+          <div class="form-group">
+            <label for="currency">Valuta</label>
+            <select name="currency" id="currency" [(ngModel)]="account().currency">
+              @for (currency of getCurrencies(); track currency) {
+                <option [value]="currency">{{ currency }}</option>
+              }
+            </select>
+          </div>
+          <button class="btn-primary" (click)="createAccount()">Crea Account</button>
+        </div>
+      }
     }
-  </select>
-  <button (click)="createAccount()">Crea</button>
+  </div>
 </div>
-}

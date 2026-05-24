@@ -1,18 +1,22 @@
-import { Component, effect, Signal } from '@angular/core';
+import { Component, effect, signal, Signal } from '@angular/core';
 import { ServizioSaldo } from '../../service/servizio-saldo';
 import { Transactions } from '../../model/saldo/saldo-module';
 import { Transaction } from '../transaction/transaction';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { map } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { map, tap } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @Component({
   selector: 'app-transactions-list',
-  imports: [Transaction, CommonModule],
+  imports: [Transaction, CommonModule, MatIconModule, MatProgressSpinnerModule],
   templateUrl: './transactions-list.html',
   styleUrl: './transactions-list.scss',
 })
 export class TransactionsList {
+  protected isLoading = signal(true);
   protected max = 5;
   protected min = 0;
   protected qta = 1;
@@ -23,7 +27,9 @@ export class TransactionsList {
     console.log("accountId in transactions-list:", this.BankingService.getAccountId());
     const accountId = this.BankingService.getAccountId().toString();
     this.transazioni = toSignal(this.BankingService.getTransactions(accountId).pipe(
-      map((response: any) => response.transactions)
+      map((response: any) => response.transactions),
+      tap(() => console.log("Transazioni ricevute:", this.transazioni())),
+      tap(() => this.isLoading.set(false)),
     ), {
       initialValue: [{
         id: 0,
@@ -35,13 +41,14 @@ export class TransactionsList {
         created_at: ""
       }]
     });
-
   };
 
   protected go(): void {
-    this.max += 5;
-    this.min += 5;
-    this.qta += 1;
+    if(this.min + 5 < this.transazioni().length) {
+      this.max += 5;
+      this.min += 5;
+      this.qta += 1;
+    }
   }
 
   protected back(): void {

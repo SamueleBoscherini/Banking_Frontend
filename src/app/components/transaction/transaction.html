@@ -1,11 +1,13 @@
-<div class="card" style="display: flex; gap: 15px; align-items: center; white-space: nowrap;">
-    <h3>transazione n°: {{num}}</h3>
-    <span>tipo: {{transazione.type}}</span>
-    <span>description: {{transazione.description}}</span>
-    <span>effettuata: {{date()}}</span>
-    @if(transazione.type === "deposit"){
-    <span>quantity: +{{transazione.amount}}</span>
-    } @else {
-    <span>quantity: -{{transazione.amount}}</span>
-    }
+<div class="transaction-card">
+  <div class="tx-type-icon" [class.deposit]="transazione.type === 'deposit'" [class.withdrawal]="transazione.type !== 'deposit'">
+    <mat-icon>{{ transazione.type === 'deposit' ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
+  </div>
+  <div class="tx-info">
+    <div class="tx-number">Transazione #{{num}}</div>
+    <div class="tx-description">{{transazione.description}}</div>
+    <div class="tx-date">{{date()}}</div>
+  </div>
+  <div class="tx-amount" [class.positive]="transazione.type === 'deposit'" [class.negative]="transazione.type !== 'deposit'">
+    {{transazione.type === 'deposit' ? '+' : '-'}}{{transazione.amount}}
+  </div>
 </div>

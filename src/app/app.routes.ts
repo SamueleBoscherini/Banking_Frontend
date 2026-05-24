@@ -5,7 +5,7 @@ import { Withdrawals } from './components/withdrawals/withdrawals';
 import { Converts } from './components/converts/converts';
 import { Login } from './components/login/login';
 import { authGuard } from './guards/auth-guard';
-import { C } from '@angular/cdk/keycodes';
+import {Graphics} from './components/graphics/graphics';
 
 
 export const routes: Routes = [
@@ -19,7 +19,8 @@ export const routes: Routes = [
       { path: 'home', component: Home },
       { path: 'deposits', component: Deposits },
       { path: 'prelievo', component: Withdrawals },
-      { path: 'convert', component: Converts }
+      { path: 'convert', component: Converts },
+      {path: 'graphics', component: Graphics}
     ],
   },
 ];

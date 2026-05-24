@@ -1,11 +1,37 @@
-<div>
-    <h1>Saldo attuale: {{ saldo() }}</h1>
+<div class="page-container">
+  <div class="balance-card">
+    <div class="balance-label">Saldo attuale</div>
+    <div class="balance-value">{{ saldo() }}</div>
+  </div>
 
-</div>
-<div>
-    <label for="prelievo">Importo del prelievo:</label>
-    <input type="number" [(ngModel)]="importoPrelievo">
-    <label for="description">Descrizione:</label>
-    <input type="text" [(ngModel)]="descrizionePrelievo">
-    <button (click)="effettuaPrelievo()">Effettua prelievo</button>
+  <div class="form-card">
+    <h2>
+      <mat-icon>remove_circle</mat-icon>
+      Nuovo Prelievo
+    </h2>
+
+    @if (isLoading()) {
+      <div class="loading-inline">
+        <mat-spinner [diameter]="28" color="primary"></mat-spinner>
+        <span>Elaborazione prelievo...</span>
+      </div>
+    } @else {
+      <div class="form-group">
+        <label for="prelievo">Importo del prelievo</label>
+        <input type="number" id="prelievo" [(ngModel)]="importoPrelievo" placeholder="0.00">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descrizione</label>
+        <input type="text" id="description" [(ngModel)]="descrizionePrelievo" placeholder="Descrizione del prelievo">
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-submit" (click)="effettuaPrelievo()">
+          <mat-icon>arrow_upward</mat-icon>
+          Effettua prelievo
+        </button>
+      </div>
+    }
+  </div>
 </div>

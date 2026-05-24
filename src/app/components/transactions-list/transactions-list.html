@@ -1,11 +1,30 @@
-<div>
-   @for ( t of transazioni().slice(min,max); track t.id) {
-   <app-transaction [transazione]="t" [num]="transazioni().indexOf(t) + 1">
-   </app-transaction>
-   } @empty {
-   <p>no transactions</p>
-   }
-   <button (click)="back()">&larr; indietro</button>
-   {{qta}}
-   <button (click)="go()">Avanti &rarr;</button>
-</div>
+@if (isLoading()) {
+  <div class="loading-container">
+      <mat-spinner [diameter]="40" color="primary"></mat-spinner>
+      <p>Caricamento transazioni...</p>
+  </div>
+} @else {
+  <div class="transactions-container">
+    @for ( t of transazioni().slice(min,max); track t.id) {
+      <app-transaction [transazione]="t" [num]="transazioni().indexOf(t) + 1">
+      </app-transaction>
+    } @empty {
+      <div class="empty-state">
+        <mat-icon>receipt_long</mat-icon>
+        <p>Nessuna transazione disponibile</p>
+      </div>
+    }
+
+    @if (transazioni().length > 0) {
+      <div class="pagination-bar">
+        <button class="page-btn" (click)="back()">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="page-indicator">{{qta}}</span>
+        <button class="page-btn" (click)="go()">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    }
+  </div>
+}

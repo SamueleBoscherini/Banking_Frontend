@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ServizioSaldo } from '../../service/servizio-saldo';
 import { Transactions } from '../../model/saldo/saldo-module';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-transaction',
-  imports: [],
+  imports: [MatIconModule],
   templateUrl: './transaction.html',
   styleUrl: './transaction.scss',
 })

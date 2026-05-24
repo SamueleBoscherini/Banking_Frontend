@@ -1,29 +1,56 @@
-<div>
-    <div>
-        <h4>Seleziona per convertire nelle seguenti valute</h4>
-        @for (currency of getCurrencies(); track currency) {
-            <button (click)="convertFiat(currency)">
-                {{ currency }}
-            </button>
+<div class="page-container">
+  <h1 class="page-title">
+    <mat-icon>currency_exchange</mat-icon>
+    Converti Valuta
+  </h1>
+
+  <div class="convert-section">
+    <h4>Valute Fiat</h4>
+    <div class="currency-grid">
+      @for (currency of getCurrencies(); track currency) {
+        @if (currency === getCurrency()) {      
+          <button class="currency-btn active" disabled>
+            {{ currency }} 
+          </button>
+        } @else {                             
+          <button class="currency-btn" (click)="convertFiat(currency)" [disabled]="isLoading()">
+            {{ currency }}
+          </button>
         }
+      }
     </div>
-    <div>
-        <h4>Seleziona per convertire nelle seguenti criptovalute</h4>
-        @for (crypto of getCryptos(); track crypto) {
-            <button (click)="convertCrypto(crypto)">
-                {{ crypto }}
-            </button>
-        }
+  </div>
+
+  <div class="convert-section">
+    <h4>Criptovalute</h4>
+    <div class="currency-grid">
+      @for (crypto of getCryptos(); track crypto) {
+        <button class="currency-btn" (click)="convertCrypto(crypto)" [disabled]="isLoading()">
+          {{ crypto }}
+        </button>
+      }
     </div>
-</div>
-<div>
-    <div>
-        <p>Il tuo Saldo</p>
-        <h3>{{getSaldo()}}</h3>
-    </div>
-    <h2>&rarr;</h2>
-    <div>
-        <p>Il tuo Saldo Convertito</p>
-        <h3>{{convertedAmount()}}</h3>
-    </div>
+  </div>
+
+  <div class="result-section">
+    @if (isLoading()) {
+      <div class="loading-container">
+        <mat-spinner [diameter]="40" color="primary"></mat-spinner>
+        <p>Conversione in corso...</p>
+      </div>
+    }
+    @else{
+      <div class="conversion-result">
+        <div class="balance-box">
+          <div class="box-label">Il tuo Saldo</div>
+          <div class="box-value">{{getSaldo()}}</div>
+        </div>
+        <div class="convert-arrow">&rarr;</div>
+        <div class="result-box">
+          <div class="box-label">Saldo Convertito</div>
+          <div class="box-value">{{convertedAmount()}}</div>
+        </div>
+      </div>
+    }
+  </div>
 </div>

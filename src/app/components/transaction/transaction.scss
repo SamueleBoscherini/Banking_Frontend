@@ -1,6 +1,83 @@
-.card {
-    display: flex;            /* Allinea tutti gli elementi in orizzontale */
-    gap: 15px;                /* Crea lo spazio orizzontale tra un dato e l'altro */
-    align-items: center;      /* Allinea perfettamente i testi al centro in verticale */
-    white-space: nowrap;      /* Impedisce ai dati di andare a capo se lo schermo è stretto */
+.transaction-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  transition: all 0.25s ease;
+  margin-bottom: 8px;
+
+  &:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateX(4px);
+  }
+}
+
+.tx-type-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &.deposit {
+    background: var(--accent-teal-dim);
+    color: var(--accent-teal);
+  }
+
+  &.withdrawal {
+    background: var(--accent-red-dim);
+    color: var(--accent-red);
+  }
+}
+
+.tx-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tx-number {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.tx-description {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tx-date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.tx-amount {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: right;
+  flex-shrink: 0;
+
+  &.positive {
+    color: var(--accent-teal);
+  }
+
+  &.negative {
+    color: var(--accent-red);
+  }
 }

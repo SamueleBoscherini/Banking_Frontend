@@ -1,13 +1,23 @@
 <div class="home-container">
-    <div>
-        <h1>Nome: {{getAccountName()}}</h1>
-        <p>iban: xxx</p>
+  <div class="account-header">
+    <div class="account-info">
+      <div class="account-owner">
+        <h1>{{getAccountName()}}</h1>
+        <span class="account-iban">IBAN: xxx • Conto corrente</span>
+      </div>
+      <div class="account-balance-section">
+        <div class="balance-label">Saldo disponibile</div>
+        <div class="balance-amount">{{getAccountBalance()}}</div>
+        <span class="balance-currency">{{getAccountCurrency()}}</span>
+      </div>
     </div>
-    <div>
-        <h3>Saldo: <span>{{getAccountBalance()}}</span></h3>
-        <span>currency: {{getAccountCurrency()}}</span>
-    </div>
+  </div>
 
-    <app-transactions-list>
-    </app-transactions-list> 
+  <div class="transactions-wrapper">
+    <h3 class="section-title">
+      <mat-icon>receipt_long</mat-icon>
+      Storico Transazioni
+    </h3>
+    <app-transactions-list></app-transactions-list>
+  </div>
 </div>

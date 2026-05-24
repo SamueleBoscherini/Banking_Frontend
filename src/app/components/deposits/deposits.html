@@ -1,11 +1,37 @@
-<div>
-    <h1>Saldo attuale: {{ saldo() }}</h1>
+<div class="page-container">
+  <div class="balance-card">
+    <div class="balance-label">Saldo attuale</div>
+    <div class="balance-value">{{ saldo() }}</div>
+  </div>
 
-</div>
-<div>
-    <label for="deposito">Importo del deposito:</label>
-    <input type="number" [(ngModel)]="importoDeposito">
-    <label for="description">Descrizione:</label>
-    <input type="text" [(ngModel)]="descrizioneDeposito">
-    <button (click)="effettuaDeposito()">Effettua deposito</button>
+  <div class="form-card">
+    <h2>
+      <mat-icon>add_circle</mat-icon>
+      Nuovo Deposito
+    </h2>
+
+    @if (isLoading()) {
+      <div class="loading-inline">
+        <mat-spinner [diameter]="28" color="primary"></mat-spinner>
+        <span>Elaborazione deposito...</span>
+      </div>
+    } @else {
+      <div class="form-group">
+        <label for="deposito">Importo del deposito</label>
+        <input type="number" id="deposito" [(ngModel)]="importoDeposito" placeholder="0.00">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descrizione</label>
+        <input type="text" id="description" [(ngModel)]="descrizioneDeposito" placeholder="Descrizione del deposito">
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-submit" (click)="effettuaDeposito()">
+          <mat-icon>arrow_downward</mat-icon>
+          Effettua deposito
+        </button>
+      </div>
+    }
+  </div>
 </div>

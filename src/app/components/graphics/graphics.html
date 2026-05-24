@@ -1,1 +1,28 @@
-<p>graphics works!</p>
+<div class="page-container">
+  <h1 class="page-title">
+    <mat-icon>bar_chart</mat-icon>
+    Andamento Transazioni
+  </h1>
+
+  @if (isLoading()) {
+    <div class="loading-container">
+      <mat-spinner [diameter]="50" color="primary"></mat-spinner>
+      <p>Recupero dati in corso...</p>
+    </div>
+  } @else {
+    <div class="chart-card">
+      <div class="chart-header">
+        <select
+          [ngModel]="selectedYear()"
+          (ngModelChange)="onYearChange($event)"
+          class="year-select"
+        >
+          @for (year of availableYears; track year) {
+            <option [value]="year">{{ year }}</option>
+          }
+        </select>
+      </div>
+      <canvas id="transactionChart"></canvas>
+    </div>
+  }
+</div>
