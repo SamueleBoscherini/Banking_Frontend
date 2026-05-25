@@ -93,9 +93,9 @@ export class ServizioSaldo {
             this.setAccount({
               ...fullAccount,
               account_id: (fullAccount as any).id,
-              balance: balanceData.balance 
+              balance: balanceData.balance
             });
-            console.log("account nuovo",this.accounts())
+            console.log("account nuovo", this.accounts())
           })
         )
       )
@@ -107,7 +107,7 @@ export class ServizioSaldo {
     localStorage.setItem('account', JSON.stringify(account));
   }
 
-  updateAccountInt(Name: string, Currency: string,AccountId: string): void {
+  updateAccountInt(Name: string, Currency: string, AccountId: string): void {
     console.log(AccountId);
     this.accounts.update(acc => ({
       ...acc,
@@ -123,7 +123,7 @@ export class ServizioSaldo {
     return this.accounts();
   }
 
-  getFullAccount(AccountId: string): Observable<Account>{
+  getFullAccount(AccountId: string): Observable<Account> {
     return this.http.get<Account>(`${this.apiUrl}/accounts/${AccountId}`);
   }
 
@@ -169,12 +169,16 @@ export class ServizioSaldo {
     return this.http.get<any>(`${this.apiUrl}accounts/${accountId}/balance/convert/crypto?to=${Currency}`);
   }
 
-  updateAccount(accountId: string,owner_name: string): Observable<any>{
-    return this.http.put<Account>(`${this.apiUrl}accounts/${accountId}`, { owner_name })  
+  updateAccount(accountId: string, owner_name: string): Observable<any> {
+    return this.http.put<Account>(`${this.apiUrl}accounts/${accountId}`, { owner_name })
   }
 
-  deleteAccount(accountId: string): Observable<any>{
+  deleteAccount(accountId: string): Observable<any> {
     return this.http.delete<Account>(`${this.apiUrl}accounts/${accountId}`)
   }
-}
 
+  createTransfer(AccountFrom: string, AccountTo: Account, Amount: number,): Observable<any> {
+    return this.http.delete<Account>(`${this.apiUrl}accounts/${AccountFrom}/transfer`)
+  }
+
+}

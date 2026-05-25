@@ -22,6 +22,7 @@ export class TransactionsList {
   protected qta = 1;
 
   transazioni: Signal<Transactions[]>;
+  save!: Signal<Transactions[]>;
 
   constructor(private BankingService: ServizioSaldo) {
     console.log("accountId in transactions-list:", this.BankingService.getAccountId());
@@ -44,7 +45,7 @@ export class TransactionsList {
   };
 
   protected go(): void {
-    if(this.min + 5 < this.transazioni().length) {
+    if (this.min + 5 < this.transazioni().length) {
       this.max += 5;
       this.min += 5;
       this.qta += 1;
@@ -59,6 +60,29 @@ export class TransactionsList {
     }
   }
 
+  protected deposito(): void {
+    if (this.save === undefined) {
+      this.save = this.transazioni;
+    } else {
+      this.transazioni = this.save;
+    }
+
+    this.transazioni = signal<Transactions[]>(this.transazioni().filter(t => t.type == "deposit"));
+  }
+
+  protected prelievo(): void {
+    if (this.save === undefined) {
+      this.save = this.transazioni;
+    } else {
+      this.transazioni = this.save;
+    }
+
+    this.transazioni = signal<Transactions[]>(this.transazioni().filter(t => t.type == "withdrawal"));
+  }
+
+  protected tutti(): void {
+    this.transazioni = this.save;
+  }
 
 
 }

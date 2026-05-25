@@ -9,7 +9,8 @@
 
   <span class="spacer"></span>
 
-  <button mat-icon-button (click)="themeService.toggle()" [attr.aria-label]="themeService.isDark() ? 'Attiva tema chiaro' : 'Attiva tema scuro'">
+  <button mat-icon-button (click)="themeService.toggle()"
+    [attr.aria-label]="themeService.isDark() ? 'Attiva tema chiaro' : 'Attiva tema scuro'">
     <mat-icon>{{ themeService.isDark() ? 'dark_mode' : 'light_mode' }}</mat-icon>
   </button>
   <img class="user-avatar" [src]="themeService.getImgUrl()" alt="avatar">
@@ -52,6 +53,10 @@
         <mat-icon>arrow_upward</mat-icon>
         <span>Prelievo</span>
       </a>
+      <!--       <a mat-list-item routerLink="/transfer">
+        <mat-icon>bar_chart</mat-icon>
+        <span>trasferimento</span>
+      </a> -->
       <a mat-list-item routerLink="/convert">
         <mat-icon>swap_horiz</mat-icon>
         <span>Converti</span>

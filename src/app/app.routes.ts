@@ -5,8 +5,9 @@ import { Withdrawals } from './components/withdrawals/withdrawals';
 import { Converts } from './components/converts/converts';
 import { Login } from './components/login/login';
 import { authGuard } from './guards/auth-guard';
-import {Graphics} from './components/graphics/graphics';
-import {Option} from './components/option/option'
+import { Graphics } from './components/graphics/graphics';
+import { Option } from './components/option/option'
+/* import { Tranfser } from './components/tranfser/tranfser'; */
 
 
 export const routes: Routes = [
@@ -22,7 +23,8 @@ export const routes: Routes = [
       { path: 'prelievo', component: Withdrawals, data: { animation: 'Withdrawals' } },
       { path: 'convert', component: Converts, data: { animation: 'Converts' } },
       { path: 'graphics', component: Graphics, data: { animation: 'Graphics' } },
-      { path: 'option', component: Option, data: { animation: 'Option' } },
+      /*       { path: 'transfer', component: Tranfser, data: { animation: 'Option' } }, */
+      { path: 'option', component: Option, data: { animation: 'Option' } }
     ],
   },
 ];
